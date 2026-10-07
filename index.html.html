@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Coffe shop</title>
+        <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN08xCSP_xxtJSzdBPG_kumGwQEabNYhYLogV2y7DqfA&s=10">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/505 projects collection/styleone.css">
+        <script src="/505 projects collection/scriptone.js" defer></script>
+
+        <style>
+            nav {
+                position: sticky;
+                top: 8px;
+                z-index: 10;
+                margin: 15px auto;
+                padding: 8px;
+                max-width: 1100px;
+                background: rgb(173, 92, 0);
+                border-radius: 999px;
+                box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            }
+
+            nav ul {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 6px;
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+
+            nav a {
+                display: block;
+                padding: 7px 14px;
+                border-radius: 999px;
+                color: white;
+                text-decoration: none;
+                font-weight: bold;
+                font-size: 15px;
+                transition: background 0.3s, color 0.3s, transform 0.3s;
+            }
+
+            nav a:hover {
+                background: rgb(255, 198, 128);
+                color: brown;
+                transform: translateY(-3px);
+            }
+
+            h1, table, section, article { scroll-margin-top: 90px; }
+
+            .slider {
+                position: relative;
+                width: min(900px, 95%);
+                aspect-ratio: 5 / 2;
+                margin: 15px auto;
+                overflow: hidden;
+                border-radius: 25px;
+                background: white;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            }
+
+            .slider .slide {
+                position: absolute;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                opacity: 0;
+                transition: opacity 0.5s ease;
+            }
+
+            .slider .slide.logo { object-fit: contain; }
+            .slider .slide.active { opacity: 1; }
+
+            [id="Today's special"] {
+                font-family: "Fredoka", "Arial Rounded MT Bold", sans-serif;
+                font-size: 3rem;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                text-shadow: 3px 3px 0 rgb(255, 198, 128);
+            }
+
+            [id="Today's special"]::before { content: "🍩 "; }
+            [id="Today's special"]::after { content: " 🍩"; }
+
+            main > p {
+                display: table;
+                margin: 8px auto 14px;
+                padding: 6px 22px;
+                border-radius: 999px;
+                background: rgb(255, 198, 128);
+                color: brown;
+                font-family: "Fredoka", "Arial Rounded MT Bold", sans-serif;
+                font-weight: 700;
+                letter-spacing: 1px;
+                transform: rotate(-3deg);
+                box-shadow: 0 4px 0 rgb(173, 92, 0);
+            }
+
+            .specials col { background: transparent !important; }
+
+            .specials table {
+                border: 0;
+                border-collapse: separate;
+                border-spacing: 18px;
+                margin: 0 auto;
+            }
+
+            .specials td {
+                background: rgb(255, 243, 224);
+                border: 3px dashed rgb(173, 92, 0);
+                border-radius: 30px;
+                padding: 18px;
+                text-align: center;
+                vertical-align: middle;
+                box-shadow: 0 8px 0 rgba(173, 92, 0, 0.3);
+                transition: transform 0.3s;
+            }
+
+            .specials td:nth-child(2) { background: rgb(255, 217, 168); }
+            .specials td:hover { transform: translateY(-6px) rotate(-1deg); }
+
+            .specials label {
+                display: inline-block;
+                margin-bottom: 10px;
+                padding: 6px 18px;
+                border-radius: 999px;
+                background: rgb(173, 92, 0);
+                color: white;
+                font-family: "Fredoka", "Arial Rounded MT Bold", sans-serif;
+                font-size: 18px;
+                letter-spacing: 0.5px;
+                text-transform: capitalize;
+            }
+
+            .specials label font,
+            .specials label b { color: inherit; }
+
+            .specials img {
+                display: block;
+                margin: 8px auto 0;
+                border-radius: 20px;
+                background: white;
+            }
+
+            .menu-table {
+                width: min(720px, 94%);
+                height: auto;
+                margin: 20px auto;
+                border: 0;
+                border-collapse: separate;
+                border-spacing: 0;
+                border-radius: 28px;
+                overflow: hidden;
+                box-shadow: 0 8px 0 rgb(122, 63, 0), 0 14px 20px rgba(0, 0, 0, 0.25);
+                font-family: "Fredoka", "Arial Rounded MT Bold", sans-serif;
+            }
+
+            .menu-table col { background: transparent !important; }
+
+            .menu-table th,
+            .menu-table td {
+                padding: 12px 18px;
+                border: 0;
+                border-bottom: 2px dashed rgba(173, 92, 0, 0.4);
+                text-align: center;
+                color: rgb(74, 37, 17);
+            }
+
+            .menu-table tr:nth-child(1) th {
+                background: rgb(59, 29, 10);
+                color: white;
+                font-size: 24px;
+                letter-spacing: 3px;
+                text-transform: uppercase;
+            }
+
+            .menu-table tr:nth-child(2) th {
+                background: rgb(173, 92, 0);
+                color: white;
+                font-size: 17px;
+                letter-spacing: 1px;
+                text-transform: uppercase;
+            }
+
+            .menu-table tr:nth-child(odd) td { background: rgb(255, 243, 224); }
+            .menu-table tr:nth-child(even) td { background: rgb(241, 211, 173); }
+            .menu-table tr:last-child td { border-bottom: 0; }
+            .menu-table tr:nth-child(n+3):hover td { background: rgb(224, 169, 109); }
+
+            .menu-table a {
+                color: rgb(74, 37, 17);
+                font-weight: 700;
+                text-decoration: none;
+            }
+
+            .menu-table a:hover {
+                color: rgb(173, 92, 0);
+                text-decoration: underline wavy;
+                text-underline-offset: 4px;
+            }
+
+            .menu-table tr:nth-child(3) a::before { content: "🍩 "; }
+            .menu-table tr:nth-child(4) a::before { content: "🥤 "; }
+            .menu-table tr:nth-child(5) a::before { content: "🥐 "; }
+            .menu-table tr:nth-child(6) a::before { content: "☕ "; }
+            .menu-table tr:nth-child(7) a::before { content: "🥖 "; }
+
+            .holiday img {
+                width: 200px;
+                height: 200px;
+                object-fit: cover;
+                background: rgb(255, 198, 128);
+                border-radius: 10px;
+            }
+
+            .holiday td { text-align: center; padding: 10px; }
+
+            #box {
+                min-height: 60px;
+                margin: 10px auto;
+                padding: 10px;
+                max-width: 500px;
+                font-size: 30px;
+                text-align: center;
+                border: 2px dashed rgb(173, 92, 0);
+            }
+
+            .chip {
+                display: inline-block;
+                margin: 4px;
+                padding: 4px 14px;
+                border-radius: 999px;
+                background: rgb(255, 198, 128);
+                color: brown;
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            .chip-icon { font-size: 22px; margin-right: 6px; }
+
+            .added-msg { margin-left: 12px; color: brown; font-weight: bold; }
+
+            .builder { text-align: center; }
+
+            .builder button {
+                background: rgb(173, 92, 0);
+                color: white;
+                border: none;
+                border-radius: 20px;
+                padding: 8px 18px;
+                cursor: pointer;
+            }
+
+            .news-wrap {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                gap: 30px;
+            }
+
+            .news-3d {
+                width: 320px;
+                max-width: 100%;
+                animation: float 3s ease-in-out infinite;
+                filter: drop-shadow(0 12px 12px rgba(0, 0, 0, 0.25));
+            }
+
+            .news-3d svg { width: 100%; height: auto; display: block; }
+
+            .tilt {
+                transition: transform 0.2s ease-out;
+                transform-style: preserve-3d;
+            }
+
+            @keyframes float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-8px); }
+            }
+
+            .reveal {
+                opacity: 0;
+                transform: translateY(40px);
+                transition: opacity 0.9s ease, transform 0.9s ease;
+            }
+
+            .reveal.show { opacity: 1; transform: none; }
+
+            @media (prefers-reduced-motion: reduce) {
+                .reveal { opacity: 1; transform: none; transition: none; }
+                .news-3d { animation: none; }
+                .slider .slide { transition: none; }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+           <h1 ><font color="brown">Dunkin Donuts</font></h1>
+           <p><b> We are a brand made for your taste of coffe AND donuts!</b></p>
+           <a href="https://dunkin.co.uk/?srsltid=AU7gw4UVt0VFpoEOZA2xROlMNoVqmAY5dQmubkJedThlSLPDHSLTRfix"></a>
+           <div class="slider">
+               <img class="slide active" src="/505 projects collection/slide1.png" alt="Pick your potion">
+               <img class="slide" src="/505 projects collection/slide2.png" alt="My walking green flag">
+               <img class="slide logo" src="/505 projects collection/slide1.png" alt="Dunkin Donuts logo">
+           </div>
+           <nav>
+            <ul>
+                <li>
+                    <a href="#Today's special">Today's special</a>
+                </li>
+                <li>
+                    <a href="#OUR MENU">OUR MENU</a>
+                </li>
+                <li>
+                    <a href="#holidays">Holiday treats</a>
+                </li>
+                <li>
+                    <a href="#builder">Build a box</a>
+                </li>
+                <li>
+                    <a href="#offers">OFFERS</a>
+                </li>
+                <li>
+                    <a href="#newsetteler">Our new setteler</a>
+                </li>
+                <li>
+                    <a href="#Fr">Frequently asked questions</a>
+                </li>
+                <li>
+                    <a href="">About us</a>
+                </li>
+                <li>
+                    <a href="#more">Find a branch</a>
+                </li>
+            </ul>
+           </nav>
+           <br>
+           <hr>
+        <main>
+          <H1 id="Today's special" class="reveal"><Font color="brown">Today's Specials</Font></H1>
+            <p>Limited Time!!</p>
+            <hr>
+
+        <article class="reveal specials">
+            <table border="1" >
+                <colgroup>
+                   <col span="1" style="background-color: rgb(173, 92, 0);">
+                   <col>
+                   <col style="background-color: rgb(173, 92, 0);">
+                </colgroup>
+                <tr>
+                    <td>
+                        <label><font color="white"><b>cookie creme blast</b></font></label>
+                        <br>
+                        <img class="tilt" src="https://dunkin.co.uk/media/catalog/product/cache/e539437c3e9d1d7207f37b434c37c871/c/o/cookie-kreme-blast.png" width="200">
+                    </td>
+                    <td>
+                        <label><font color="rgb(173, 92, 0);"><b>pumkin spice latte</b></font></label>
+                        <br>
+                        <img class="tilt" src="https://dunkin.co.uk/media/catalog/product/cache/e539437c3e9d1d7207f37b434c37c871/m/a/mango_pineapple_refresher.jpg" width="200">
+                    </td>
+                    <td>
+                        <label><font color="white"><b>chocolate croissont</b></font></label>
+                        <img class="tilt" src="https://dunkin.co.uk/media/catalog/product/cache/e539437c3e9d1d7207f37b434c37c871/c/h/chocolate-croissant.png" width="200">
+                    </td>
+                </tr>
+            </table>
+            <hr>
+        </article>
+        <h1 class="reveal"><font color="Brown"><b>OUR MENU</b></font></h1>
+        <table id="OUR MENU" class="reveal menu-table" border="1" width="400" height="30">
+            <colgroup>
+            <col style="background-color: rgb(255, 198, 128);">
+            <col style="background-color: rgb(190, 124, 9);">
+            <col style="background-color: rgb(167, 106, 0);">
+            </colgroup>
+            <tr> 
+            <th colspan="3">Categories</th>
+            </tr>
+            <tr>
+                <th>Food</th>
+                <th>Price range</th>
+                <th>Availability</th>
+            </tr>
+            <tr>
+            <td>
+               <a href="#d menu">Donuts</a> 
+            </td>
+            <td>200-700</td>
+            <td>All day</td>
+            </tr>
+            <tr>
+              <td>
+                <a href="#cmenu">Cold drinks</a>
+            </td>
+              <td>600-1000</td>
+              <td>Morning only</td>
+            </tr>
+            <tr>
+                <td>
+                   <a href="#croissonts"> Croisonts</a>
+                </td>
+                <td>200-600</td>
+                <td>Evenings</td>
+            </tr>
+            <tr>
+                <td>
+                   <a href="#hotdrinks">Hot drinks</a> 
+                </td>
+                <td>600-1000</td>
+                <td>Mornings and Nights only </td>
+            </tr>
+            <tr>
+                <td>
+                   <a href="#Bakery">Bakery</a> 
+                </td>
+                <td>100-1000</td>
+                <td>All day</td>
+            </tr>
+        </table>
+        <br>
+        <hr>
+        <h2 class="reveal"><font color="brown"><b>Donuts:</b></font></h2>
+        <section class="reveal">
+            <form>
+                <fieldset id="d menu">
+                 <legend>Preferneces:</legend>
+                 <label>Flavour prefered</label>
+                <input type="text" list="donuts">
+                <datalist id="donuts">
+                  <option value="caramel">
+                  <option value="Creme">
+                  <option value="chocolate">
+                  <option value="Vannila">
+                  <option value="Lotus">
+                  <option value="Honey"></option>
+                </datalist>
+                <br>
+                <br>
+                 <label>Donut</label>
+                <input type="text" list="kind">
+                <datalist id="kind">
+                  <option value="chocolate pistachio">
+                  <option value="Maple praline">
+                  <option value="Tofee Apple">
+                  <option value="Smores">
+                  <option value="Hazelnet pie">
+                  <option value="Rocky Road">
+                  <option value="chocolate monster">
+                </datalist>
+                </fieldset>
+                <button type="submit" title="For sending the order">add to the box</button>
+            </form>
+        </section>
+        <br>
+        <br>
+        <hr>
+        <section class="reveal">
+            <h2><font color="brown"><b>Cold drinks:</b></font></h2>
+            <form>
+                <fieldset id="cmenu">
+                 <legend>Preferneces:</legend>
+                 <label>Flavour prefered</label>
+                <input type="text" list="cold">
+                <datalist id="cold">
+                  <option value="caramel">
+                  <option value="Creme">
+                  <option value="chocolate">
+                  <option value="Vannila">
+                  <option value="Lotus">
+                  <option value="Honey"></option>
+                </datalist>
+                <br>
+                <br>
+                 <label>Cold drinks</label>
+                <input type="text" list="k">
+                <datalist id="k">
+                  <option value="Americano">
+                  <option value="latte">
+                  <option value="Iced tea">
+                  <option value="cappucino">
+                  <option value=" chocolate drink">
+                  <option value="Mnago pineapple refresher">
+                  <option value="Smoothie">
+                  <option value="mango milkshake">
+                </datalist>
+                </fieldset>
+                <button type="submit" title="For sending the order">add to the box</button>
+            </form>
+        </section>
+        <br>
+        <br>
+        <hr>
+          <h2 class="reveal"><font color="brown"><b>Croissonts:</b></font></h2>
+        <section class="reveal">
+            <form>
+                <fieldset id="croissonts">
+                 <legend>Preferneces:</legend>
+                 <label>Flavour prefered</label>
+                <input type="text" list="c">
+                <datalist id="c">
+                  <option value="caramel">
+                  <option value="Creme">
+                  <option value="chocolate">
+                  <option value="Vannila">
+                  <option value="Lotus">
+                  <option value="Honey"></option>
+                </datalist>
+                <br>
+                <br>
+                 <label>Croissonts</label>
+                <input type="text" list="T">
+                <datalist id="T">
+                  <option value="chocolate pistachio">
+                  <option value="Maple praline">
+                  <option value="Tofee Apple">
+                  <option value="Smores">
+                  <option value="Hazelnet pie">
+                  <option value="Rocky Road">
+                  <option value="chocolate monster">
+                </datalist>
+                </fieldset>
+               <button type="submit" title="For sending the order">add to the box</button>
+            </form>
+        </section>
+        <h2 class="reveal"><font color="brown"><b>Hot drinks:</b></font></h2>
+        <section class="reveal">
+            <form>
+                <fieldset id="hotdrinks">
+                 <legend>Preferneces:</legend>
+                 <label>Flavour prefered</label>
+                <input type="text" list="l">
+                <datalist id="l">
+                  <option value="caramel">
+                  <option value="Creme">
+                  <option value="chocolate">
+                  <option value="Vannila">
+                  <option value="Lotus">
+                  <option value="Honey"></option>
+                </datalist>
+                <br>
+                <br>
+                 <label>hotdrinks</label>
+                <input type="text" list="j">
+                <datalist id="j">
+                  <option value="chocolate pistachio">
+                  <option value="Maple praline">
+                  <option value="Tofee Apple">
+                  <option value="Smores">
+                  <option value="Hazelnet pie">
+                  <option value="Rocky Road">
+                  <option value="chocolate monster">
+                </datalist>
+                </fieldset>
+                <button type="submit" title="For sending the order">add to the box</button>
+            </form>
+        </section>
+        </main>
+        <h2 class="reveal"><font color="brown"><b>Bakery:</b></font></h2>
+        <section class="reveal">
+            <form>
+                <fieldset id="Bakery">
+                 <legend>Preferneces:</legend>
+                 <label>Flavour prefered</label>
+                <input type="text" list="e">
+                <datalist id="e">
+                  <option value="caramel">
+                  <option value="Creme">
+                  <option value="chocolate">
+                  <option value="Vannila">
+                  <option value="Lotus">
+                  <option value="Honey"></option>
+                </datalist>
+                <br>
+                <br>
+                 <label>hotdrinks</label>
+                <input type="text" list="y">
+                <datalist id="y">
+                  <option value="chocolate pistachio">
+                  <option value="Maple praline">
+                  <option value="Tofee Apple">
+                  <option value="Smores">
+                  <option value="Hazelnet pie">
+                  <option value="Rocky Road">
+                  <option value="chocolate monster">
+                </datalist>
+                </fieldset>
+                <button type="submit" title="For sending the order">add to the box</button>
+            </form>
+        </section>
+        <br>
+        <br>
+        <hr>
+
+        <section id="holidays" class="holiday reveal">
+            <h1><font color="brown"><b>HOLIDAY TREATS!!</b></font></h1>
+
+            <h2><font color="brown"><b>Halloween</b></font></h2>
+            <table border="1">
+                <tr>
+                    <td>
+                        <img class="tilt" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDVh11PzPM4Ir1O7AojgR7lkxp690pu-v6r1o71SvOMw&s=10" alt="Ghost donut">
+                        <br>
+                        <label><b>Ghost donut</b></label>
+                    </td>
+                    <td>
+                        <img class="tilt" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsOqyPui795gb94XRWK7BMQUw2IQOOvqtfepa-nTwm2w&s=10" alt="Pumkin spice latte">
+                        <br>
+                        <label><b>Pumkin spice latte</b></label>
+                    </td>
+                    <td>
+                        <img class="tilt" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAFGOKAh8H0O_ufybDyTRqM_rvWUUmhuSVQJEqQwvy4g&s=10" alt="Candy corn cookie">
+                        <br>
+                        <label><b>Candy corn cookie</b></label>
+                    </td>
+                </tr>
+            </table>
+
+            <h2><font color="brown"><b>Christmas</b></font></h2>
+            <table border="1">
+                <tr>
+                    <td>
+                        <img class="tilt" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcayJRIftYj1xA9rr6e2oBQKMvi7V90Bu9nn4OZ24dwQ&s=10" alt="Gingerbread donut">
+                        <br>
+                        <label><b>Gingerbread donut</b></label>
+                    </td>
+                    <td>
+                        <img class="tilt" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJIKr9GufIcn4sWdF0rA6xQR6YUTiEDSwF78Y3oCKmTw&s=10" alt="Peppermint hot chocolate">
+                        <br>
+                        <label><b>Peppermint hot chocolate</b></label>
+                    </td>
+                    <td>
+                        <img class="tilt" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQllB1cGq2g2lhL-gqA4OQ3msAVUdqs3MppaTEBr0PT8w&s=10" alt="Snowman cake pop">
+                        <br>
+                        <label><b>Snowman cake pop</b></label>
+                    </td>
+                </tr>
+            </table>
+
+            <h2><font color="brown"><b>Ramadan</b></font></h2>
+            <table border="1">
+                <tr>
+                    <td>
+                        <img class="tilt" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTAG4wrA9qhPBpCzzbz5Zw-19lKla4ISd-JH-2A6z5UaA&s=10" alt="Date and caramel donut">
+                        <br>
+                        <label><b>Date and caramel donut</b></label>
+                    </td>
+                    <td>
+                        <img class="tilt" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQekmVvhWROW00SflZf6jjslduCwKsbQctbpFjP_MEfBA&s=10" alt="Kunafa">
+                        <br>
+                        <label><b>Kunafa croissont</b></label>
+                    </td>
+                    <td>
+                        <img class="tilt" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTYG3SDN6UV7fQBMUQqMn3fp5dLPvY9a6vLMW5vBCKpZwImWrh4ZF93rM&s=10 alt="Qamar el din iced drink">
+                        <br>
+                        <label><b>Qamar el din iced drink</b></label>
+                    </td>
+                </tr>
+            </table>
+
+            <h2><font color="brown"><b>Thanksgiving</b></font></h2>
+            <table border="1">
+                <tr>
+                    <td>
+                        <img class="tilt" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTIHgKGUOuy8HnF3q4TsU_5HFDKjlcebTNERgOowRERLg&s=10 alt="Pecan pie donut">
+                        <br>
+                        <label><b>Pecan pie donut</b></label>
+                    </td>
+                    <td>
+                        <img class="tilt" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYCRaqEhCCl3hSM8e-3hJunGaAPLxaFrZTq1oRQj0f4w&s=10" alt="Apple cider">
+                        <br>
+                        <label><b>Apple cider</b></label>
+                    </td>
+                    <td>
+                        <img class="tilt" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQd2In5GqMNSJ41P8m7SBpCK50T06YmjwWP6dPDj819g&s=10" alt="Sweet potato muffin">
+                        <br>
+                        <label><b>Sweet potato muffin</b></label>
+                    </td>
+                </tr>
+            </table>
+        </section>
+        <hr>
+
+        <section id="builder" class="builder reveal">
+            <h1><font color="brown"><b>BUILD A BOX</b></font></h1>
+            <p>Click a treat to add it to your box (12 max)</p>
+            <button type="button" data-treat="">Donut</button>
+            <button type="button" data-treat="">Croissont</button>
+            <button type="button" data-treat="">Cookie</button>
+            <button type="button" data-treat="">Cupcake</button>
+            <div id="box">Your box is empty</div>
+            <p>Treats in your box: <b id="count">0</b></p>
+            <button type="button" id="clear">Empty the box</button>
+        </section>
+        <hr>
+
+        <article id="offers" class="reveal">
+        <h1><font color="brown"><b>OFFERS!!</b></font></h1>
+        <table border="1">
+            <tr>
+                <td>
+                 <img class="tilt" src="/505 projects collection/image.png">
+                 <br>
+                 <label><i>300</i> instead of <del>700</del></label>
+                </td>
+                <td>
+                    <img class="tilt" src="/505 projects collection/Screenshot 2026-10-03 200833.png">
+                    <br>
+                    <label>
+                        Buy one, get the rest for <b>FREE!</b>
+                    </label>
+                </td>
+                <td> 
+                    <img class="tilt" src="/505 projects collection/last.png">
+                    <br>
+                    <label>buy the large for 2$ instead of <del>5$</del></label>
+                </td>
+            </tr>
+        </table>
+        <h2><font color="brown"><b>FOR MORE OFFERS, JOIN OUR NEWSETTELER!</b></font></h2>
+
+        <div class="news-wrap">
+         <form id="newsetteler" >
+        <fieldset>
+            <legend>Personal info</legend>
+        <label>Email:</label>
+        <input type="text" placeholder="Enter you email@" required >
+        <br>
+        <br>
+         <label>Birthday:</label>
+        <input type="date" >
+        <br>
+        <br>
+        <label>Which decade where you born in?</label>
+        <input type="number" min="1800" max="2026" step="10" value="1700">
+        <br>
+        <br>
+        
+        
+        </fieldset>
+        <fieldset>
+            <legend>Credentials:</legend>
+        <label>Pasword:</label>
+        <input type="password" required placeholder="Enter a complex password">
+        <br>
+         
+        <label>Phone:</label>
+        <input type="tel" required placeholder="+20 1200 0000">
+        </fieldset>
+        <fieldset>
+            <legend>Terms:</legend>
+        <div>
+        <label>do you want to join our newstteler?</label>
+        <br>
+        <label>Yes</label>
+        <input type="radio" name="Desecion" value="yes">
+        <label>No</label>
+        <input type="radio" name="Desecion" value="no">
+        </div>
+
+        <div>
+        <label>Do you agree to the terms and conditions?</label>
+        <input type="checkbox" checked>
+        </div>
+        <br>
+        </fieldset>
+        <fieldset>
+            <legend>Send me any notes or reccomendations</legend>
+            <label>Your message</label>
+            <br>
+           <textarea placeholder="type your message here" cols="30" rows="20"></textarea>
+        </fieldset>
+        <button type="submit" title="For completeing the form">Register</button>
+        
+
+     </form>
+
+        <div class="news-3d">
+            <svg class="tilt" viewBox="0 0 340 300" role="img" aria-label="A coffee cup with a lotus donut and a smiley donut">
+                <defs>
+                    <linearGradient id="cupG" x1="0" x2="1">
+                        <stop offset="0" stop-color="#bdbdbd"/>
+                        <stop offset="0.28" stop-color="#ffffff"/>
+                        <stop offset="0.65" stop-color="#ececec"/>
+                        <stop offset="1" stop-color="#a9a9a9"/>
+                    </linearGradient>
+                    <radialGradient id="coffeeG" cx="0.5" cy="0.5" r="0.6">
+                        <stop offset="0" stop-color="#fff2de"/>
+                        <stop offset="0.45" stop-color="#e9a56b"/>
+                        <stop offset="1" stop-color="#b8672b"/>
+                    </radialGradient>
+                    <radialGradient id="doughG" cx="0.4" cy="0.3" r="0.8">
+                        <stop offset="0" stop-color="#f3bd68"/>
+                        <stop offset="1" stop-color="#b8701f"/>
+                    </radialGradient>
+                    <radialGradient id="glazeG" cx="0.4" cy="0.3" r="0.8">
+                        <stop offset="0" stop-color="#8a5a35"/>
+                        <stop offset="1" stop-color="#3b1d0a"/>
+                    </radialGradient>
+                    <radialGradient id="smileG" cx="0.35" cy="0.3" r="0.8">
+                        <stop offset="0" stop-color="#fff27a"/>
+                        <stop offset="0.7" stop-color="#f7c600"/>
+                        <stop offset="1" stop-color="#d49a00"/>
+                    </radialGradient>
+                </defs>
+
+                <ellipse cx="170" cy="280" rx="150" ry="14" fill="rgba(0,0,0,0.15)"/>
+
+                <g transform="rotate(-8 82 236)">
+                    <ellipse cx="82" cy="240" rx="72" ry="38" fill="url(#doughG)"/>
+                    <ellipse cx="82" cy="232" rx="60" ry="29" fill="url(#glazeG)"/>
+                    <ellipse cx="82" cy="232" rx="15" ry="7" fill="#fff3e0"/>
+                    <path d="M30 230 Q55 216 80 228 T135 226" stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <path d="M36 244 Q60 230 85 244 T130 242" stroke="#ffffff" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <rect x="56" y="196" width="48" height="26" rx="6" fill="#d9993f" transform="rotate(-12 80 209)"/>
+                    <rect x="62" y="201" width="36" height="3" rx="1.5" fill="#b87a28" transform="rotate(-12 80 209)"/>
+                </g>
+
+                <path d="M112 70 L126 262 Q170 278 214 262 L228 70 Z" fill="url(#cupG)"/>
+                <ellipse cx="170" cy="70" rx="58" ry="13" fill="#ffffff" stroke="#d6d6d6"/>
+                <ellipse cx="170" cy="71" rx="48" ry="9" fill="url(#coffeeG)"/>
+                <ellipse cx="170" cy="70" rx="14" ry="4" fill="#fffaf0"/>
+                <text transform="translate(176 170) rotate(90)" text-anchor="middle" font-family="Fredoka, 'Arial Black', sans-serif" font-weight="700" font-size="30" fill="#ff671f" letter-spacing="1">DUNKIN'</text>
+
+                <g transform="rotate(10 268 214)">
+                    <ellipse cx="268" cy="216" rx="56" ry="60" fill="url(#smileG)"/>
+                    <ellipse cx="250" cy="190" rx="8" ry="13" fill="#222"/>
+                    <ellipse cx="286" cy="186" rx="8" ry="13" fill="#222"/>
+                    <path d="M238 222 Q268 264 306 216" stroke="#222" stroke-width="7" fill="none" stroke-linecap="round"/>
+                    <ellipse cx="246" cy="168" rx="15" ry="7" fill="#ffffff" opacity="0.45" transform="rotate(-30 246 168)"/>
+                </g>
+            </svg>
+        </div>
+        </div>
+        </article>
+        <br>
+        <hr>
+        <section id="Fr" class="reveal">
+            <h1><font color="brown"><b>Frequently asked questions</b></font></h1>
+            <aside>
+        <details>
+            <summary>How can I find the nearest branch to me?</summary>
+            <p>you can go on google maps and search for " dunkin donuts"</p>
+        </details>
+     </aside>
+     <aside>
+        <details>
+            <summary>Is there a special holiday season ?</summary>
+            <p>Yes! we have different offers for each holdiay</p>
+        </details>
+     </aside>
+     <aside>
+        <details>
+            <summary>How can I know If I'm allergic to your food?</summary>
+            <p>you can search for the ingredients online and make sure your not allergic to them</p>
+        </details>
+     </aside>
+        </section>
+        <br>
+        <br>
+        <hr>
+        <footer>
+       &lt; &lt; &lt;&copy; dunkin donuts  &lt; &lt; &lt;
+     <br id="more">
+     <a href="/505 projects collection/about.html" >About us</a> 
+      <a href="/505 projects collection/location.html" id="more">Find a branch</a> 
+      <a href="/505 projects collection/coffeshop.html" >back to top</a> 
+        </footer>
+
+        <script>
+            const slides = document.querySelectorAll(".slide");
+            let current = 0;
+
+            setInterval(function () {
+                slides[current].classList.remove("active");
+                current = (current + 1) % slides.length;
+                slides[current].classList.add("active");
+            }, 1000);
+
+            const observer = new IntersectionObserver(function (items) {
+                items.forEach(function (item) {
+                    if (item.isIntersecting) {
+                        item.target.classList.add("show");
+                        observer.unobserve(item.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll(".reveal").forEach(function (el) {
+                observer.observe(el);
+            });
+
+            document.querySelectorAll(".tilt").forEach(function (img) {
+                img.addEventListener("mousemove", function (e) {
+                    const box = img.getBoundingClientRect();
+                    const x = (e.clientX - box.left) / box.width - 0.5;
+                    const y = (e.clientY - box.top) / box.height - 0.5;
+                    img.style.transform =
+                        "perspective(600px) rotateY(" + x * 30 + "deg) rotateX(" + -y * 30 + "deg) scale(1.08)";
+                });
+
+                img.addEventListener("mouseleave", function () {
+                    img.style.transform = "";
+                });
+            });
+
+            const box = document.getElementById("box");
+            const count = document.getElementById("count");
+            let treats = [];
+
+            function showBox() {
+                box.textContent = "";
+                if (!treats.length) {
+                    box.textContent = "Your box is empty";
+                }
+                treats.forEach(function (treat) {
+                    const chip = document.createElement("span");
+                    chip.className = "chip";
+                    if (treat.icon) {
+                        const icon = document.createElement("span");
+                        icon.className = "chip-icon";
+                        icon.textContent = treat.icon;
+                        chip.appendChild(icon);
+                    }
+                    chip.appendChild(document.createTextNode(treat.name));
+                    box.appendChild(chip);
+                });
+                count.textContent = treats.length;
+            }
+
+            function addTreat(treat) {
+                if (treats.length >= 12) return false;
+                treats.push(treat);
+                showBox();
+                return true;
+            }
+
+            document.querySelectorAll("[data-treat]").forEach(function (button) {
+                button.addEventListener("click", function () {
+                    addTreat({ icon: button.dataset.treat, name: button.textContent });
+                });
+            });
+
+            document.querySelectorAll("form:not(#newsetteler)").forEach(function (form) {
+                form.addEventListener("submit", function (e) {
+                    e.preventDefault();
+                    const fields = form.querySelectorAll("input[type=text]");
+                    const flavour = fields[0].value.trim();
+                    const item = fields[1].value.trim();
+
+                    let msg = form.querySelector(".added-msg");
+                    if (!msg) {
+                        msg = document.createElement("span");
+                        msg.className = "added-msg";
+                        form.appendChild(msg);
+                    }
+
+                    if (!item) {
+                        msg.textContent = "Pick an item first!";
+                        return;
+                    }
+
+                    let name = item;
+                    if (flavour && !item.toLowerCase().includes(flavour.toLowerCase())) {
+                        name = flavour + " " + item;
+                    }
+
+                    if (addTreat({ icon: "", name: name })) {
+                        msg.innerHTML = 'Added! <a href="#builder">see your box</a>';
+                        fields.forEach(function (f) { f.value = ""; });
+                    } else {
+                        msg.textContent = "Your box is full (12 max)";
+                    }
+                });
+            });
+
+            document.getElementById("clear").addEventListener("click", function () {
+                treats = [];
+                showBox();
+            });
+        </script>
+    </body>
+</html>
